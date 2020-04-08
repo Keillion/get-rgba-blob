@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <input id="ipt-file" type="file" accept="image/jpeg,image/png,image/bmp,image/gif">
+</body>
+<script>
+    document.getElementById('ipt-file').addEventListener('change', async function(){
+        let cvs = document.createElement('canvas');
+        let ctx = cvs.getContext('2d');
+        let img = await createImageBitmap(this.files[0]);
+        cvs.width = img.width;
+        cvs.height = img.height;
+        ctx.drawImage(img,0,0);
+        let data = ctx.getImageData(0,0,cvs.width,cvs.height).data;
+        let blob = new Blob([data], {type:"application/octet-stream"});
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        a.href = url;
+        a.download = Date.now();
+        let ev = new MouseEvent('click',{
+            "view": window,
+            "bubbles": true,
+            "cancelable": false
+        });
+        a.dispatchEvent(ev);
+        this.value = "";
+    });
+</script>
+</html>
