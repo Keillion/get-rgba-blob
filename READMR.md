@@ -1,1 +1,1 @@
-https://keillion.github.io/get-rgba-blob/index.html
+quick run: https://keillion.github.io/get-rgba-blob/index.html
